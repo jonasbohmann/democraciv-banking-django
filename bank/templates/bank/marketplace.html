@@ -1,0 +1,38 @@
+{% extends "bank/base.html" %}
+{% block body %}
+
+    <div class="content-section">
+        <h2 class="border-bottom md-2">The Marketplace</h2>
+        <h6 class="text-muted">Explore organizations and corporations from every nation around the globe. Not every organization is listed here, since every organization has to opt-in to be on the Marketplace.</h6>
+        <br>
+
+        {% for f_corporation in featured %}
+            <p class="h5 text-danger mb-6"><a href="{% url 'bank:corporation-detail' f_corporation.corporation.abbreviation %}"><span class="badge badge-warning">Ad</span>  {{ f_corporation.corporation.name }}</a></p>
+            <p>{{ f_corporation.ad_message|linebreaks }}</p>
+        {% endfor %}
+
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2">
+
+    {% for corporation in corporations %}
+      <div class="col mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ corporation.name }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ corporation.get_organization_type_display }} from {{ corporation.get_nation_display }}</h6>
+              <p class="card-text">{{ corporation.description|linebreaks }}</p>
+            </div>
+              <div class="card-footer">
+                <a href="{% url 'bank:corporation-detail' corporation.abbreviation %}" class="card-link">Details</a>
+                {% if corporation.discord_server %}
+                <a href="{{ corporation.discord_server }}" class="card-link"><i class="fab fa-discord"></i>   Discord Server</a>
+                {% endif %}
+              </div>
+          </div>
+      </div>
+    {% endfor %}
+
+    </div>
+
+{% endblock body %}

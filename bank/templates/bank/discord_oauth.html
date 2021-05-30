@@ -1,0 +1,32 @@
+{% extends "bank/base.html" %}
+{% block body %}
+    <div class="content-section">
+      <h4 class="border-bottom md-2">Connect with your Discord Account</h4>
+        <p class="text-muted">Ready to take it to the next level? Connect with your Discord Account to enable these perks.</p>
+        <div class="card-group">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Notifications</h5>
+              <p class="card-text">Real-time notifications for incoming transactions, new invitations to join organizations, and updates on employee invites your organization sent out.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">QuickSend&trade; Technology</h5>
+              <p class="card-text">Send money to other people directly on Discord, without the need to specify the IBAN of a bank account of theirs.</p>
+              <p class="card-text"><kbd>-bank send @DerJonas 50</kbd></p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Easy Access</h5>
+              <p class="card-text">Check the balance of all bank accounts you have access to, even shared bank accounts, directly on Discord.</p>
+              <p class="card-text"><kbd>-bank accounts</kbd></p>
+            </div>
+          </div>
+        </div>
+        <br>
+        <a href="{{ discord_url }}"><button class="btn btn-primary" style="margin-bottom: 10px" ><i class="fab fa-discord"></i>  Connect with Discord</button></a><br>
+        <small class="text-muted">We only get your username & avatar from Discord, not your Discord account's email adress.</small>
+    </div>
+{% endblock body %}

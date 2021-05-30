@@ -1,0 +1,28 @@
+{% extends "bank/base.html" %}
+{% block body %}
+
+  <div class="jumbotron">
+      <h1 class="display-3">The {{ bank_name }}</h1>
+      <p class="lead">Unlimited personal & shared bank accounts with comprehensive transaction records. Multiple currencies and a deep Discord Bot integration. No clunky spreadsheets and no waiting for someone to clear a transaction. Zero fees.</p>
+      <hr class="my-4">
+  </div>
+
+    <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 mb-5" style="text-align: justify">
+        <h2 class="display-4">How it works</h2>
+        <hr>
+        <p><strong>We're not a traditional bank</strong>, we don't give out loans, there are no interests and we don't even have any money ourselves. Instead, our goal is to provide a solid technical framework for handling money, transactions & currencies to the international community of our community.</p>
+        <p>Getting started is easy, just register with a username and password <a href="{% url 'register' %}">here</a>. We don't need to know anything else about you.</p>
+        <p>Once registered, you can open as many bank accounts as you want. You can select the currency and a unique name, so you know which ones which, for every bank account that you open. All currencies are issued by third-parties, for example by governments or private groups.
+        <p>Every bank account has its own, unique <strong>International Bank Account Number</strong>, the IBAN. When you want to send someone some money, you just have to ask them for their IBAN.
+        <p>Feeling like the next Jeff Bezos? Go ahead and form an organization, mark it as a corporation and invite some employees. Your corporate bank accounts can be accessed by everyone in your organization. Publish your organization to the Marketplace and dominate your competition.</p>
+        <p>Take it to the next level by <strong>connecting with your Discord account</strong>. This enables real-time notifications on incoming transactions & updates on employee invitations, as well as the ability to check your balance and send money to other people directly on Discord.</p>
+      </div>
+
+  </div>
+
+  </div>
+
+{% endblock body %}

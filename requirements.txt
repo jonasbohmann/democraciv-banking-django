@@ -1,0 +1,14 @@
+django
+django-money
+django-crispy-forms
+djangorestframework
+django_tables2
+django-guardian
+django-background-tasks
+requests
+requests_oauthlib
+psycopg2-binary
+sentry_sdk
+djangorestframework-guardian
+django-renderpdf
+tablib[all]

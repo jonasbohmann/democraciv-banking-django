@@ -1,0 +1,56 @@
+{% extends "bank/base.html" %}
+{% load crispy_forms_tags %}
+{% load render_table from django_tables2 %}
+
+{% block body %}
+    <div class="container">
+        <div class="content-section">
+            <div class="row align-items-start">
+                <div class="col col-9">
+                    <h2 class="border-bottom md-2">{{ corporation.name }}</h2>
+                    <p class="lead">{{ corporation.get_organization_type_display }} from {{ corporation.get_nation_display }}</p>
+                    <h6 class="font-weight-bold">Abbreviation</h6><p>{{ corporation.abbreviation }}</p>
+
+                    {% if corporation.industry %}
+                        <h6 class="font-weight-bold">Industry</h6><p>{{ corporation.get_industry_display }}</p>
+                    {% endif %}
+
+                    {% if corporation.discord_server %}
+                        <h6 class="font-weight-bold">Discord Server </h6><a href="{{ corporation.discord_server }}"><p><i class="fab fa-discord"></i>   Join</p></a>
+                    {% endif %}
+
+                    <h6 class="font-weight-bold">Founded on</h6><p>{{ corporation.created_on|date:"F d, Y \U\T\C"  }}</p>
+                    <h6 class="font-weight-bold">Description</h6><p>{{ corporation.description|linebreaks }}</p>
+                </div>
+
+                {% if is_employed %}
+                    <div class="col align-self-end">
+                        <div class="card" style="width: fit-content">
+                          <div class="card-body">
+                            <h5 class="card-title">Actions</h5>
+                            <a href="{% url 'bank:corporation-employees' corporation.pk %}"><button class="btn btn-primary" style="margin-bottom: 10px"><i class="fas fa-users"></i>  Employees</button></a>
+                            <a href="{% url 'bank:corporation-update' corporation.pk %}"><button class="btn btn-warning" style="margin-bottom: 10px"><i class="fas fa-edit"></i>  Edit</button></a>
+                            {% if is_boss %}
+                              <a href="{% url 'bank:corporation-delete' corporation.pk %}"><button class="btn btn-danger" style="margin-bottom: 10px"><i class="fas fa-trash"></i>  Delete</button></a>
+                            {% endif %}
+                          </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if is_employed and table %}
+            <div class="row mt-5">
+                <div class="col">
+                    <h4>Bank Accounts</h4>
+                        <div class="table-responsive">
+                            {% render_table table %}
+                        </div>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock body %}

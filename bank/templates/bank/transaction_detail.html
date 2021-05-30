@@ -1,0 +1,42 @@
+{% extends "bank/base.html" %}
+
+{% block body %}
+    <div class="content-section">
+        <h2 class="border-bottom mb-2">Transaction</h2>
+
+        {% if from %}
+           <h6 class="font-weight-bold">From</h6><p class="mr-2">{{ object.from_account }}</p>
+        {% else %}
+           <h6 class="font-weight-bold">From</h6><p class="mr-2"> {{ object.from_account.pretty_holder }}</p>
+        {% endif %}
+
+        {% if to %}
+            <h6 class="font-weight-bold">To</h6><p class="mr-2">{{ object.to_account }}</p>
+        {% else %}
+            <h6 class="font-weight-bold">To</h6><p class="mr-2"> {{ object.to_account.pretty_holder }}</p>
+        {% endif %}
+
+        {% if to and not from %}
+            <h6 class="font-weight-bold">Amount</h6><p class="text-success mr-2">+{{ object.amount }}</p>
+        {% elif from and not to %}
+            <h6 class="font-weight-bold">Amount</h6><p class="text-danger mr-2">-{{ object.amount }}</p>
+        {% elif to and from %}
+            <h6 class="font-weight-bold">Amount</h6><p class="mr-2">{{ object.amount }}</p>
+        {% else %}
+            <h6 class="font-weight-bold">Amount</h6><p class="mr-2">{{ object.amount }}</p>
+        {% endif %}
+
+        {% if object.purpose %}
+            <h6 class="font-weight-bold">Purpose</h6><p class="mr-2">{{ object.purpose|linebreaks }}</p>
+        {% else %}
+            <h6 class="font-weight-bold">Purpose</h6><p class="mr-2">Left blank.</p>
+        {% endif %}
+
+        {% if from and object.authorized_by and object.from_account.corporate_holder %}
+            <h6 class="font-weight-bold">Authorized by</h6><span class="text-muted">You're seeing this because this transaction was sent from an organization's shared bank account.</span>
+            <p class="mr-2">{{ object.authorized_by.username }}</p>
+        {% endif %}
+
+        <p class="text-muted">{{ object.created_on|date:"F d, Y \a\t H:i:s \U\T\C" }}</p>
+    </div>
+{% endblock body %}

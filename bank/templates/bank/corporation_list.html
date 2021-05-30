@@ -1,0 +1,12 @@
+{% extends "bank/base.html" %}
+{% load render_table from django_tables2 %}
+{% block body %}
+    <div class="content-section">
+        <h2 class="border-bottom md-2">Organizations</h2>
+        <h6 class="text-muted">You can see every organization you're part of here, whether you're just an employee or its owner.</h6>
+        <br>
+        <div class="table-responsive">
+            {% render_table table %}
+        </div>
+    </div>
+{% endblock body %}

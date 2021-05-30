@@ -1,0 +1,17 @@
+{% extends "bank/base.html" %}
+{% load render_table from django_tables2 %}
+{% block body %}
+
+    <div class="content-section">
+        <h2 class="border-bottom md-2">Bank Accounts</h2>
+        <h6 class="text-muted">You can see every bank account you have access to here, both your personal ones and bank accounts from organizations that you're part of.</h6>
+        <br>
+        <a href="{% url 'bank:account-create'%}"><button class="btn btn-success"><i class="fas fa-plus fa-sm"></i>   Open a new Bank Account</button></a>
+        <br>
+        <br>
+        <div class="table-responsive">
+            {% render_table table %}
+        </div>
+    </div>
+
+{% endblock body %}

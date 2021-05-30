@@ -1,0 +1,17 @@
+{% extends "bank/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">{{ form_title }}</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-success" type="submit">{{ form_button }}</button>
+            </div>
+        </form>
+    </div>
+{% endblock body %}

@@ -1,0 +1,25 @@
+{% extends "bank/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+    <div class="content-section">
+        <h4 class="border-bottom mb-2">Confirm Transaction</h4>
+        <h6 class="font-weight-bold">From</h6><p>{{ from_account }}</p>
+        <h6 class="font-weight-bold">Recipient</h6><p>{{ to_user }}
+        <h6 class="font-weight-bold">Recipient's Bank Account IBAN</h6><p>{{ iban }})</p>
+        <h6 class="font-weight-bold">Amount</h6><p>{{ amount }} </p>
+        <h6 class="font-weight-bold">Your new Balance</h6><p>{{ old_balance  }} <i class="fas fa-chevron-right"></i> {{ new_balance }}</p>
+        <br>
+
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group" style="display: none">
+                <legend class="border-bottom mb-4">Transaction</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-success" type="submit"><i class="fas fa-check"></i>  Send {{ amount }}</button>
+            </div>
+        </form>
+    </div>
+{% endblock body %}

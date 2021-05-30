@@ -1,0 +1,39 @@
+{% extends "bank/base.html" %}
+{% block body %}
+{% load crispy_forms_tags %}
+
+<div class="content-section">
+    <div class="row align-items-start">
+        <div class="col col-8">
+            <h3 class="border-bottom md-2">User Settings</h3>
+            <a href="{% url 'change-password' %}"><button class="btn btn-primary btn-sm">Change Password</button></a>
+            {% if not user.discord_id %}
+                <a href="{% url 'bank:user-discord-connect' %}"><button class="btn btn-primary btn-sm"><i class="fab fa-discord"></i>  Connect with Discord</button></a>
+            {% else %}
+                <a href="{% url 'bank:user-discord-connect' %}"><button class="btn btn-primary btn-sm"><i class="fab fa-discord"></i>  Refresh Discord username and avatar</button></a>
+            {% endif %}
+            <br><br>
+
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-sm btn-success" type="submit">Update</button>
+                </div>
+            </form>
+
+            {% if user.discord_id %}
+              <small class="text-muted">Connected to Discord user {{ user.discord_username }}</small>
+            {% endif %}
+        </div>
+
+        <div class="col">
+            {% if user.discord_id %}
+                <img class="rounded img-fluid float-right float-top" src="{{ user.discord_profile_picture_url }}" alt="Discord Avatar">
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock body %}

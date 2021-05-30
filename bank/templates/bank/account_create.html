@@ -1,0 +1,13 @@
+{% extends "bank/base.html" %}
+{% block body %}
+    <div class="content-section">
+       <h5 class="border-bottom md-1">Personal Bank Account</h5>
+        <p class="text-muted">You are the only one with access to your personal bank accounts.</p>
+        <a href="{% url 'bank:account-create-personal'%}"><button class="btn btn-primary" style="margin-bottom: 10px" ><i class="fas fa-user"></i>  Open a new Personal Bank Account</button></a>
+        <br><br>
+        <h5 class="border-bottom md-1">Shared Bank Account</h5>
+        <p class="text-muted">Every employee in an organization has access to all of its bank accounts.</p>
+        <a href="{% url 'bank:account-create-corporate'%}"><button class="btn btn-primary" style="margin-bottom: 10px"><i class="fas fa-users"></i>  Open a new Bank Account for one of your organizations</button></a>
+    </div>
+
+{% endblock body %}

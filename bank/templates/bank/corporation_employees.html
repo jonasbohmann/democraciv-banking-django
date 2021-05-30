@@ -1,0 +1,52 @@
+{% extends "bank/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+    <div class="content-section">
+        <h3 class="border-bottom md-2">Employees of {{ corporation.name }}</h3>
+        <p class="text-muted">Only the organization's owner can invite new employees and fire existing employees.</p>
+        <br>
+
+        <script type="text/javascript">
+            function conf() {
+                return confirm("Are you sure that you want to fire this employee?");
+            }
+        </script>
+
+        <ul class="list-group">
+            <li class="list-group-item"><strong>{{ corporation.owner.username }}</strong> (Owner)</li>
+            {% for employee in employees %}
+                {% if can_manage %}
+                   <li class="list-group-item">{{ employee.person.username }}<a href="{% url 'bank:corporation-employees-fire' corporation.pk employee.pk %}"><button class="btn btn-outline-danger btn-sm" style="margin-left: 2em" onclick="return conf()"><i class="fas fa-user-minus"></i>  Fire Employee</button></a><a href="{% url 'bank:corporation-employees-transfer-ownership' corporation.pk employee.pk %}"><button class="btn btn-danger btn-sm" style="margin-left: 2em"><i class="fas fa-user-tie"></i>  Transfer Ownership</button></a></li>
+                {% else %}
+                   <li class="list-group-item">{{ employee.person.username }}<a href="{% url 'bank:corporation-employees-fire' corporation.pk employee.pk %}"><button disabled class="btn btn-outline-danger btn-sm disabled" style="margin-left: 2em"><i class="fas fa-user-minus"></i>  Fire Employee</button></a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <br>
+        {% if invites %}
+            <h6 class="font-weight-bold">Pending Employee Invites</h6>
+            <ul class="list-group">
+                {% for invite in invites %}
+                    <li class="list-group-item">{{ invite.potential_employee.username }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <br>
+        {% if can_manage %}
+            <hr>
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-success" type="submit"><i class="fas fa-user-plus"></i>  Invite to join as a new Employee</button>
+                </div>
+            </form>
+        {% endif %}
+
+
+    </div>
+
+{% endblock body %}

@@ -1,0 +1,23 @@
+{% extends "bank/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-2">Sign Up</legend>
+                <p class="text-muted">You are allowed to make alt accounts here, which is why we only need a username & password from you, and not something like an Email address.</p>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-success" type="submit">Sign Up</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Already Registered? <a class="ml-2" href="{% url 'login' %}">Login Here</a>
+            </small>
+        </div>
+    </div>
+{% endblock body %}

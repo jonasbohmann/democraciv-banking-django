@@ -1,0 +1,62 @@
+{% extends "bank/base.html" %}
+
+{% load render_table from django_tables2 %}
+{% load export_url from django_tables2 %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+<div class="container">
+    <div class="content-section">
+        <div class="row align-items-start justify-content-start">
+            <div class="col col-9">
+                <h2 class="border-bottom md-1">{{ account.name }}</h2>
+                <p class="lead">{{ account.get_balance_currency_display }}</p>
+                <h6 class="font-weight-bold">Balance</h6><p>{{ account.balance }}</p>
+                <h6 class="font-weight-bold">IBAN</h6><p>{{ account.pk }}</p>
+                <h6 class="font-weight-bold">Default Bank Account for the {{ account.get_balance_currency_display }}</h6><p>{{ account.is_default_for_currency|yesno:"Yes, No"  }}</p>
+                {% if account.corporate_holder %}
+                    <h6 class="font-weight-bold">Organization</h6><a href="{% url 'bank:corporation-detail' account.holder.pk %}"><p>{{ account.pretty_holder }}</p></a>
+                {% endif %}
+            </div>
+
+            <div class="col align-self-end">
+                <div class="card" style="width: fit-content">
+                  <div class="card-body">
+                    <h5 class="card-title">Actions</h5>
+                    <a href="{% url 'bank:account-update' account.pk %}"><button class="btn btn-warning" style="margin-bottom: 10px"><i class="fas fa-edit"></i>  Edit</button></a>
+                    {% if form_allowed %}
+                      <a href="{% url 'bank:account-delete' account.pk %}"><button class="btn btn-danger" style="margin-bottom: 10px"><i class="fas fa-trash"></i>  Delete</button></a>
+                    {% endif %}
+                  </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="row mb-1">
+            <div class="col">
+                <h3>Transactions</h3>
+                <div class="dropdown">
+                  <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-cloud-download-alt"></i>   Export Transactions
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for format in view.export_formats %}
+                      <a class="dropdown-item" href="{% export_url format %}">
+                            <code>.{{ format }}</code>
+                      </a>
+                    {% endfor %}
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-1">
+            <div class="col">
+              <div class="table-responsive">
+                {% render_table table %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock body %}

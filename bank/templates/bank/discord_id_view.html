@@ -1,0 +1,13 @@
+{% extends "bank/base.html" %}
+{% block body %}
+{% load crispy_forms_tags %}
+
+<div class="content-section">
+    <div class="row align-items-start">
+        <div class="col col-8">
+            <p>This bill was resubmitted by the Discord User with ID {{ discord_id }}.</p>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
